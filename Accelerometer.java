@@ -1,3 +1,7 @@
+/*
+Example for libspi.so
+2017/06/23 ver.2
+*/
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
@@ -80,7 +84,7 @@ public class Accelerometer {
     }
     
     private void initialize(int sno){
-        //SS信号初期化
+        //SS signal initialization
         GpioPinDigitalOutput out = gpio.provisionDigitalOutputPin(pins[sno], sensorNames[sno], PinState.HIGH);
         outs[sno] = out;
         byte com[] = new byte[2];
@@ -109,7 +113,7 @@ public class Accelerometer {
     }
     
     public double[] sensorValue(int ss){
-        // デバイスからデータ取得
+        // get data form device
         double [] sense = new double[3];
         byte [][] spi_buff = new byte[3][3];    //buffa for sending and receiving
         
