@@ -10,7 +10,7 @@ export LD_LIBRARY_PATH=/to/your/library/libspi.so
 
 $ sudo ldconfig
 
-In Java Program, write:
+In Java Program, write like as:
 
     SpiLib spi;
     GpioController gpio;
