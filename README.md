@@ -11,7 +11,7 @@ export LD_LIBRARY_PATH=/to/your/library/libspi.so.2
 $ sudo ldconfig
 
 In Java Program, write
-/*
+
     interface SpiLib extends Library {
         SpiLib INSTANCE = (SpiLib) Native.loadLibrary("spi", SpiLib.class);
         int setupSpi(int ch, int ss, int spd);
@@ -24,4 +24,4 @@ In Java Program, write
         ........
         ........
     }
-*/
+
