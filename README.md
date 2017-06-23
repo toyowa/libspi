@@ -12,4 +12,4 @@ $ sudo ldconfig
 
 # Accelerometer.java
 
-Accelerometer.java is just an exsample to use libspi.so.
+Accelerometer.java is just an exsample to use libspi.so with multiple Digital accelerometer KXSD9s.
