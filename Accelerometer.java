@@ -14,13 +14,11 @@ import java.util.logging.Logger;
  * @author Toyoaki WASHIDA <Toyoaki WASHIDA at ibot.co.jp>
  */
 public class Accelerometer {
-    int speed = 1000000; //通信速度(Hz)
-    // このチャンネルは、Spiのチャンネルではなく、Slave Portのこと！！！！
+    int speed = 1000000; //Hz
     int SPI_CHANNEL0 = 0;
     int SPI_CHANNEL1 = 1;
     int SPI_SS0= 0;
     int SPI_SS1= 1;
-    // 以下、要チェック
     Pin SS_PORT_ORG = RaspiPin.GPIO_01; //18;
     Pin SS_PORT_TOP = RaspiPin.GPIO_21; //5;
     Pin SS_LEFT_LOWLEG = RaspiPin.GPIO_22; //6;
@@ -57,7 +55,7 @@ public class Accelerometer {
         gpio = GpioFactory.getInstance();
         outs = new GpioPinDigitalOutput[5];
         // setup SPI for communication
-        System.out.println("加速度センサーKXSD9を初期化します");
+        System.out.println("Initialize KXSD9s");
         //spi.setDelay(200);
         //spi.getConfig();
         sfd0 = spi.setupSpi(SPI_CHANNEL0, SPI_SS1, speed);
@@ -69,7 +67,7 @@ public class Accelerometer {
 
         for(int i=0;i<pins.length;i++){
             initialize(i);
-            System.out.println("SS_PORT ["+sensorNames[i]+"] Gpio ["+pins[i].toString()+"] を初期化");
+            System.out.println("SS_PORT ["+sensorNames[i]+"] Gpio ["+pins[i].toString()+"] is initialized.");
             readSensorsStasut(i);
         }
     }
@@ -88,10 +86,10 @@ public class Accelerometer {
         byte com[] = new byte[2];
         com[0] = 0x0c;  // address byte
         com[1] = (byte) 0xe3;  // register byte
-        // 設定を（+/-2g 819 counts/g）にして、小さい範囲を細かく見ている
+        // configure（+/-2g 819 counts/g）
         dataWrite(sfds[sno], out, com,2);
         com[0] = 0x0d;
-        com[1] = 0x40; // こちらはデフォルト設定のまま
+        com[1] = 0x40; // this is default
         dataWrite(sfds[sno],out, com,2);
     }
     
@@ -113,7 +111,7 @@ public class Accelerometer {
     public double[] sensorValue(int ss){
         // デバイスからデータ取得
         double [] sense = new double[3];
-        byte [][] spi_buff = new byte[3][3];    //送受信用バッファ
+        byte [][] spi_buff = new byte[3][3];    //buffa for sending and receiving
         
         int xregH, xregL, xout;
         int yregH, yregL, yout;
@@ -150,10 +148,10 @@ public class Accelerometer {
     }
     
     public void accelerTets(int iter){
-        System.out.println("センサーデータの記録を開始します 総数 = " + iter);
+        System.out.println("Start catching sendor data. Total = " + iter);
         System.out.print("データ ");
         for(int s=0;s<pins.length;s++){
-            System.out.print(sensorNames[s]+" X軸 Y軸 Z軸 ");
+            System.out.print(sensorNames[s]+" X_axis Y_axis Z_axis ");
         }
         System.out.println();
         for (int i = 0; i <= iter; i++) {
@@ -175,13 +173,13 @@ public class Accelerometer {
     private void readSensorsStasut(int ss){
         byte com[] = new byte[2];
         com[0] = (byte) 0x8c;
-        com[1] = 0x00; // こちらはデフォルト設定のまま
+        com[1] = 0x00; 
         dataWrite(sfds[ss],outs[ss],com,2);
-        System.out.println("CTL_REGCの値 = "+String.format("0x%02x",com[1] ));
+        System.out.println("Value of CTL_REGC = "+String.format("0x%02x",com[1] ));
         //
         com[0] = (byte) 0x8d;
-        com[1] = 0x00; // こちらはデフォルト設定のまま
+        com[1] = 0x00; // 
         dataWrite(sfds[ss],outs[ss],com,2);
-        System.out.println("CTL_REGBの値 = "+String.format("0x%02x",com[1] ));
+        System.out.println("Value of CTL_REGB = "+String.format("0x%02x",com[1] ));
     }
 }
