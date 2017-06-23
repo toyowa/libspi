@@ -6,7 +6,7 @@ gcc -std=c11 -fPIC -shared -o libspi.so spi.c
 
 If you use this library from JAVA, 
 
-export LD_LIBRARY_PATH=/to/your/library/libspi.so.2
+export LD_LIBRARY_PATH=/to/your/library/libspi.so
 
 $ sudo ldconfig
 
