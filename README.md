@@ -10,26 +10,4 @@ export LD_LIBRARY_PATH=/to/your/library/libspi.so
 
 $ sudo ldconfig
 
-In Java Program, write like as:
-
-    SpiLib spi;
-    GpioController gpio;
-    GpioPinDigitalOutput [] outs;
-    
-    interface SpiLib extends Library {
-        SpiLib INSTANCE = (SpiLib) Native.loadLibrary("spi", SpiLib.class);
-        int setupSpi(int ch, int ss, int spd);
-        void transfer(int sfd,  byte[] tx, int size);
-        void closeSpi(int sfd);
-        void getConfig();
-        void setDelay(int gdelay);
-        void setSpeed(int gspeed);
-    }
-
-    public Accelerometer(){
-        spi = SpiLib.INSTANCE;
-        gpio = GpioFactory.getInstance();
-        outs = new GpioPinDigitalOutput[5];
-        ...........
-        ...........
-    }
+Accelerometer.java is just an exsample to use libspi.so.
