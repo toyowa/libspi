@@ -3,7 +3,7 @@
  * License of this software is described in the head of the following text.
  * https://raw.githubusercontent.com/raspberrypi/linux/rpi-3.10.y/Documentation/spi/spidev_test.c
  * Compile is to be done as follows.
- * gcc -std=c11 -fPIC -shared -o libspi.so.2 spi2.c
+ * gcc -std=c11 -fPIC -shared -o libspi.so spi.c
  */
 
 #include <stdint.h>
